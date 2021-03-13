@@ -1,4 +1,29 @@
+function load() {
+    console.log("load function")
+    var requestOptions = {
+        method: 'POST',
+        redirect: 'follow'
+    };
 
+    fetch("http://localhost:3000/load", requestOptions)
+        .then(response => response.text())
+        .then(result => {
+            // console.log(result);
+            var res = JSON.parse(result)
+            if (res.message == "login successfull") {
+                location.replace("Dashboard.html")
+                // console.log(res)
+            }
+            else {
+                console.log(res)
+            }
+
+        })
+        .catch(error => console.log('error', error));
+
+
+
+}
 
 function getInfo() {
     console.log("function")
@@ -24,12 +49,13 @@ function getInfo() {
 
         };
 
-        fetch("http://localhost:3000/", requestOptions)
+        fetch("http://localhost:3000/login", requestOptions)
             .then(response => response.text())
             .then(result => {
                 console.log(result);
                 var res = JSON.parse(result)
-                if (res.message == "login successful")
+                // console.log(res.cookie)
+                if (res.message == "login successfull")
                     location.replace("Dashboard.html")
                 if (res.message == "Incorrect credentials") {
                     alert("Incorrect credentials")
@@ -41,4 +67,7 @@ function getInfo() {
 
 
     }
+}
+function logout() {
+    location.replace("index.html")
 }
